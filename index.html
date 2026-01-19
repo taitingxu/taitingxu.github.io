@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-
-<head>
+  <head>
     <title>锆太的网站</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,31 +8,54 @@
     <meta name="keywords" content="锆太的网站,taitingxu.github.io,锆太,gaotai,锆太gaotai">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/taitingxu/taitingxu.github.io/blob/main/favicon.ico">
     <style>
-    .锆太的图像 {
-      height:100px;
-      margin-bottom:0;
-    }
-    
-    .标题 {
-      font-size:50px;
-      font-weight:bold;
-      margin-top:0;
-    }
+      body {
+        background-color: rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .锆太的图像 {
+        height: 300px;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      .div1 {
+        background-color: white;
+        width: 300px;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .标题 {
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 0;
+      }
+
+      h1 {
+        color: blue;
+        font-size: 30px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
     </style>
-</head>
-
-<body>
-    <img class="锆太的图像" src="https://taitingxu.github.io/锆太.png" title="锆太logo"></img>
-    <p class="标题">欢迎来到锆太的网站</p>
-    <hr>
-    <h1>我的产品</h1>
-    <a href="https://taitingxu.github.io/calculator/">计算器</a>
-    <br>
-    <a href="https://taitingxu.github.io/mygames-video/">我的游戏实况</a>
-    <br>
-    <a href="https://taitingxu.github.io/rock-paper-scissors/">剪刀石头布</a>
-    <br>
-    <hr>
-</body>
-
+  </head>
+  <body>
+    <div class="div1"><img class="锆太的图像" src="https://taitingxu.github.io/锆太.png" title="锆太logo">
+      <p class="标题">欢迎来到<u style="color:purple;">锆太</u>的网站</p>
+      <hr>
+      <main>
+        <h1>我的产品</h1><a href="https://taitingxu.github.io/calculator/">计算器</a><br><a href="https://taitingxu.github.io/mygames-video/">我的游戏实况</a><br><a href="https://taitingxu.github.io/rock-paper-scissors/">剪刀石头布</a><br>
+        <hr>
+    </div>
+    </main>
+  </body>
 </html>
