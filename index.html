@@ -8,61 +8,75 @@
     <meta name="keywords" content="锆太的网站,taitingxu.github.io,锆太,gaotai,锆太gaotai">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/taitingxu/taitingxu.github.io/blob/main/favicon.ico">
     <style>
-      body {
-        background-color: rgba(0, 0, 0, 0.1);
-        font-family: 'Segoe UI', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
-      .锆太的图像 {
-        height: 300px;
-        margin-bottom: 0;
-        margin-top: 0;
-      }
-
       .div1 {
-        background-color: rgba(0,0,130,0.8);
-        width: 300px;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(20, 20, 20, 0.1);
-        text-align: center;
+        position: fixed;
+        margin: 0;
+        background-color: blue;
+        left: 0;
+        right: 0;
+        top: 0;
+        white-space: nowrap;
+        display: flex;
+      }
+
+      .锆太 {
+        height: 55px;
+        display: inline;
+        border-style: solid;
+        color: rgba(0, 0, 0, 0.3);
+        border-width: 1px;
       }
 
       .标题 {
-        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .main {
+        padding-top: 30px;
+      }
+
+      .product {
         text-align: center;
-        font-weight: bold;
-        margin-top: 0;
-        color: #ffffff;
-      }
-
-      h1 {
-        color: blue;
         font-size: 30px;
-        margin-bottom: 10px;
-        margin-top: 20px;
+        font-weight: bold;
       }
 
-      a {
+      a:link {
         text-decoration: none;
-        color: black;
+        color: blue;
+      }
+
+      .link {
+        text-align: left;
         font-weight: bold;
+        background-color: rgba(100, 100, 100, 0.4);
+      }
+
+      a:hover {
+        color: red;
+      }
+
+      a:visited {
+        color: rgba(100, 100, 100, 0.5);
+        text-decoration: line-through;
+      }
+
+      p.product {
+        text-align: left;
       }
     </style>
   </head>
   <body>
-    <div class="div1"><img class="锆太的图像" src="https://taitingxu.github.io/锆太.png" title="锆太logo">
+    <div class="div1"><img class="锆太" src="https://taitingxu.github.io/锆太.png" title="锆太logo">
       <p class="标题">欢迎来到<u style="color:purple;">锆太</u>的网站</p>
-      <hr>
-      <main>
-        <h1>我的产品</h1><a href="https://taitingxu.github.io/calculator/">计算器</a><br><a href="https://taitingxu.github.io/mygames-video/">我的游戏实况</a><br><a href="https://taitingxu.github.io/rock-paper-scissors/">剪刀石头布</a><br>
-        <hr>
     </div>
+    <hr>
+    <main class="main">
+      <p class="product">我的产品</p>
+      <hr>
+      <div class="link"><a href="https://taitingxu.github.io/calculator" target="_blank">计算器</a><br><a href="https://taitingxu.github.io/mygames-video/" target="_blank">我的游戏实况</a><br><a href="https://taitingxu.github.io/rock-paper-scissors/" target="_blank">剪刀石头布</a><br>
+        <hr>
+      </div>
     </main>
   </body>
 </html>
