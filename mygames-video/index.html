@@ -1,13 +1,865 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
-    <title>我的游戏实况</title>
-  </head>
-  <body>
-    <h1>目录</h1>
-    <a href="https://taitingxu.github.io/mygames-video/yougu-cathome-diary/">猫宅日记游戏(游谷网络)</a>
-    <br>
-    <a href="https://taitingxu.github.io/mygames-video/Minecraft/">我的世界Easecation服务器</a>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的游戏实况 | 锆太的游戏世界</title>
+    <link rel="icon" href="https://taitingxu.github.io/favicon.ico" type="image/x-icon">
+    
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 引入Google Fonts字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #00cec9;
+            --dark-color: #2d3436;
+            --light-color: #f9f9f9;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #e17055;
+            --shadow-color: rgba(108, 92, 231, 0.2);
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #0f0f1a;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* 游戏风格标题 */
+        .game-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin: 2rem 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+            position: relative;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(108, 92, 231, 0.5), 0 0 20px rgba(108, 92, 231, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(108, 92, 231, 0.8), 0 0 30px rgba(108, 92, 231, 0.5), 0 0 40px rgba(0, 206, 201, 0.3); }
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(15, 15, 26, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--light-color);
+        }
+        
+        .logo i {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+        
+        .nav-links a.active {
+            color: var(--accent-color);
+            background-color: rgba(108, 92, 231, 0.2);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        /* 主要内容容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(15, 15, 26, 0.7);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: #b0b0d0;
+            line-height: 1.8;
+        }
+        
+        /* 游戏目录区域 */
+        .games-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--light-color);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-title i {
+            color: var(--accent-color);
+        }
+        
+        /* 游戏卡片 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background: rgba(25, 25, 40, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.3);
+            border-color: var(--primary-color);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1;
+        }
+        
+        .game-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover .game-image {
+            transform: scale(1.05);
+        }
+        
+        .game-info {
+            padding: 1.5rem;
+        }
+        
+        .game-title-sm {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--light-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .game-title-sm .game-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .game-description {
+            color: #b0b0d0;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8888aa;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .game-link {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all var(--transition-speed) ease;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .game-link:hover {
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* 视频展示区域 */
+        .video-section {
+            margin-bottom: 4rem;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .video-card {
+            background: rgba(25, 25, 40, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .video-info {
+            padding: 1rem;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            color: var(--light-color);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8888aa;
+            font-size: 0.85rem;
+        }
+        
+        /* 关于我区域 */
+        .about-section {
+            background: rgba(25, 25, 40, 0.8);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+        }
+        
+        .about-text {
+            max-width: 800px;
+            color: #b0b0d0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 50%;
+            color: var(--light-color);
+            font-size: 1.3rem;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: rgba(10, 10, 20, 0.9);
+            padding: 3rem 2rem 1.5rem;
+            border-top: 2px solid var(--primary-color);
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--light-color);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #b0b0d0;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #8888aa;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(108, 92, 231, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .game-title {
+                font-size: 2.5rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .game-title {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 26, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--accent-color), var(--primary-color));
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 999;
+            border: none;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>锆太的游戏世界</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#games">游戏目录</a></li>
+            <li><a href="#videos">视频实况</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="https://taitingxu.github.io">返回主站</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="container">
+        <!-- 英雄区域 -->
+        <section id="home" class="hero">
+            <h1 class="game-title">我的游戏实况</h1>
+            <h2>欢迎来到我的游戏世界！</h2>
+            <p>这里是我分享游戏乐趣的地方，包含各种游戏的实况视频、攻略心得和精彩瞬间。从轻松休闲的模拟游戏到紧张刺激的竞技对战，我热爱探索不同类型游戏的魅力，并与大家分享游戏中的快乐时光。</p>
+            <div class="stats">
+                <p><i class="fas fa-video"></i> 目前已上传 <strong>null</strong> 个实况视频</p>
+                <p><i class="fas fa-gamepad"></i> 正在游玩 <strong>null</strong> 款不同游戏</p>
+                <p><i class="fas fa-users"></i> 与 <strong>5+</strong> 位玩家互动交流</p>
+            </div>
+        </section>
+
+        <!-- 游戏目录区域 -->
+        <section id="games" class="games-section">
+            <h2 class="section-title"><i class="fas fa-list"></i> 游戏目录</h2>
+            <div class="games-grid">
+                <!-- 游戏1：猫宅日记 -->
+                <div class="game-card">
+                    <img src="https://taitingxu.github.io/mygames-video/cathome-diary.png" alt="猫宅日记" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title-sm">猫宅日记 <span class="game-badge">休闲</span></h3>
+                        <p class="game-description">一款疯狂刁敌人的游戏，在游戏中养成高战力的猫咪，每一击都是暴击，体验无敌的寂寞。</p>
+                        <div class="game-meta">
+                            <span><i class="far fa-clock"></i> 游玩时间: 400+小时</span>
+                            <span><i class="fas fa-video"></i> 实况视频: 2+个</span>
+                        </div>
+                        <a href="https://taitingxu.github.io/mygames-video/yougu-cathome-diary/" class="game-link" target="_blank">查看实况 <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- 游戏2：我的世界 -->
+                <div class="game-card">
+                    <img src="https://taitingxu.github.io/mygames-video/Minecraft.png" alt="我的世界" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title-sm">我的世界 <span class="game-badge">沙盒</span></h3>
+                        <p class="game-description">在Easecation服务器上与玩家们一起打起床战争、打圣符传说和打ZVS。探索EaseCation小游戏服务器。</p>
+                        <div class="game-meta">
+                            <span><i class="far fa-clock"></i> 游玩时间: 200+小时</span>
+                            <span><i class="fas fa-video"></i> 实况视频: 16个</span>
+                        </div>
+                        <a href="https://taitingxu.github.io/mygames-video/Minecraft/" class="game-link" target="_blank">查看实况 <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- 游戏3：剪刀石头布 -->
+                <div class="game-card">
+                    <img src="https://taitingxu.github.io/XiaoYang-2026-01-24-57-40.png" alt="剪刀石头布" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title-sm">剪刀石头布 <span class="game-badge">经典</span></h3>
+                        <p class="game-description">经典的剪刀石头布游戏在线版，与AI对手进行对战，测试你的运气和策略，看看你能连胜多少局！</p>
+                        <div class="game-meta">
+                            <span><i class="far fa-clock"></i> 游玩时间: 8小时</span>
+                            <span><i class="fas fa-video"></i> 实况视频: 0个</span>
+                        </div>
+                        <a href="https://taitingxu.github.io/rock-paper-scissors/" class="game-link" target="_blank">开始游戏 <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 视频展示区域 -->
+        <section id="videos" class="video-section">
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> 最新视频实况</h2>
+            <div class="video-grid">
+                <!-- 视频1 -->
+                <div class="video-card">
+                    <img src="https://taitingxu.github.io/mygames-video/Minecraft.png" alt="我的世界EaseCation小游戏服务器" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4 class="video-title">我的世界：EaseCation服务器实况</h4>
+                        <div class="video-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-15</span>
+                            <span><i class="far fa-clock"></i> 25:42</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频2 -->
+                <div class="video-card">
+                    <img src="https://taitingxu.github.io/mygames-video/cathome-diary.png" alt="猫宅日记" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4 class="video-title">猫宅日记：新猫咪养成高战力全记录</h4>
+                        <div class="video-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-10</span>
+                            <span><i class="far fa-clock"></i> 18:15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频3 -->
+                <div class="video-card">
+                    <img src="https://taitingxu.github.io/XiaoYang-2026-01-24-57-40.png" alt="游戏对战" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4 class="video-title">剪刀石头布：挑战AI连胜10局</h4>
+                        <div class="video-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-05</span>
+                            <span><i class="far fa-clock"></i> 12:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我区域 -->
+        <section id="about" class="about-section">
+            <h2 class="section-title"><i class="fas fa-user"></i> 关于我</h2>
+            <div class="about-content">
+                <img src="https://taitingxu.github.io/锆太.png" alt="锆太" class="avatar">
+                <div class="about-text">
+                    <p>你好！我是锆太，一个热爱游戏和编程的创作者。我喜欢探索不同类型的游戏，从休闲益智到开放世界冒险，并将这些体验通过视频和网站与大家分享。</p>
+                    <p>在这里，你不仅可以观看我的游戏实况，还可以体验我制作的小游戏，比如剪刀石头布和计算器。我相信游戏不仅是娱乐，也是创造、学习和连接的媒介。</p>
+                    <p>如果你也喜欢游戏，欢迎关注我的频道，一起分享游戏世界的乐趣！</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://taitingxu.github.io" class="social-link" title="我的主站">
+                        <i class="fas fa-home"></i>
+                    </a>
+                    <a href="https://github.com/taitingxu" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link" title="哔哩哔哩">
+                        <i class="fab fa-bilibili"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>游戏实况</h3>
+                <a href="https://taitingxu.github.io/mygames-video/yougu-cathome-diary/">猫宅日记游戏</a>
+                <a href="https://taitingxu.github.io/mygames-video/Minecraft/">我的世界Easecation服务器</a>
+                <a href="https://taitingxu.github.io/rock-paper-scissors/">剪刀石头布游戏</a>
+                <a href="https://taitingxu.github.io/calculator">在线计算器</a>
+            </div>
+            <div class="footer-section">
+                <h3>相关链接</h3>
+                <a href="https://taitingxu.github.io">锆太的主站</a>
+                <a href="https://github.com/taitingxu/taitingxu.github.io">GitHub仓库</a>
+                <a href="#">视频频道</a>
+                <a href="#">游戏社区</a>
+            </div>
+            <div class="footer-section">
+                <h3>联系我</h3>
+                <p>如果你有任何建议或想合作，欢迎通过以下方式联系我：</p>
+                <p><i class="fas fa-envelope"></i> 邮箱: nihao06132024@163.com</p>
+                <p><i class="fas fa-gamepad"></i> 游戏ID: TypeScript续</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 锆太的游戏世界. 保留所有权利. | 设计制作: 锆太</p>
+            <p>本网站所有游戏内容归原版权方所有，实况视频为个人游玩记录。</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 返回顶部功能
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 导航栏高亮
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // 游戏卡片悬停效果增强
+        const gameCards = document.querySelectorAll('.game-card');
+        
+        gameCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // 游戏统计数据动态更新
+        function updateStats() {
+            const statsElements = document.querySelectorAll('.stats strong');
+            const targetValues = [32, 7, 180]; // 目标值
+            let currentValues = [0, 0, 0]; // 当前值
+            
+            const updateInterval = setInterval(() => {
+                let allReached = true;
+                
+                statsElements.forEach((element, index) => {
+                    if (currentValues[index] < targetValues[index]) {
+                        currentValues[index] += Math.ceil(targetValues[index] / 50);
+                        if (currentValues[index] > targetValues[index]) {
+                            currentValues[index] = targetValues[index];
+                        }
+                        element.textContent = currentValues[index];
+                        allReached = false;
+                    }
+                });
+                
+                if (allReached) {
+                    clearInterval(updateInterval);
+                }
+            }, 30);
+        }
+        
+        // 页面加载后开始动画
+        setTimeout(updateStats, 500);
+        
+        // 游戏卡片点击效果
+        gameCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // 如果点击的不是链接，则添加点击效果
+                if (!e.target.closest('a')) {
+                    this.style.boxShadow = '0 0 30px rgba(108, 92, 231, 0.8)';
+                    setTimeout(() => {
+                        this.style.boxShadow = '';
+                    }, 300);
+                }
+            });
+        });
+        
+        console.log('欢迎来到锆太的游戏世界！🎮');
+        console.log('网站功能已加载完成，祝你玩得愉快！');
+    </script>
+</body>
 </html>
