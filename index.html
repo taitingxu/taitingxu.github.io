@@ -1,121 +1,266 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <title>锆太的网站</title>
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="author" content="锆太的网站">
-    <meta name="keywords" content="锆太的网站,taitingxu.github.io,锆太,gaotai,锆太gaotai">
-    <link rel="shortcut icon" type="image/x-icon" href="https://github.com/taitingxu/taitingxu.github.io/blob/main/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>锆太的网站 - 个人作品集</title>
+    <meta name="description" content="锆太的个人网站，展示计算器、游戏实况等作品">
+    <meta name="keywords" content="锆太, 个人网站, 作品集, 计算器, 游戏实况">
+    <meta name="author" content="锆太">
+    
+    <!-- 修复 favicon 链接 -->
+    <link rel="icon" href="https://taitingxu.github.io/favicon.ico" type="image/x-icon">
+    
+    <!-- 将样式分离到外部文件或保持内联但优化 -->
     <style>
-      body {
-        padding-bottom:1000px;
+      /* CSS 重置和基础样式 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
       
-      .详情 {
-        display: grid;
-        grid-template-columns: 200px 1fr;
+      :root {
+        --primary-color: #0066cc;
+        --secondary-color: #800080;
+        --hover-color: #ff0000;
+        --visited-color: rgba(100, 100, 100, 0.5);
+        --bg-light: rgba(100, 100, 100, 0.1);
+        --text-color: #333;
       }
-
-      .图像 {
-        margin-top: -30px;
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        padding-bottom: 2rem;
+        background-color: #f9f9f9;
       }
-
-      .简介 {
-        display: flex;
-        width: 100px;
-        height: 100px;
-        border-style: soild;
-        border-width: 1px;
-        flex-direction: column;
-        text-align: center;
-        margin: 0;
-      }
-
-      .div1 {
+      
+      /* 头部导航栏 */
+      .header {
         position: fixed;
-        margin: 0;
-        background-color: blue;
+        top: 0;
         left: 0;
         right: 0;
-        top: 0;
-        white-space: nowrap;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1rem;
         display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       }
-
-      .锆太 {
+      
+      .logo {
         height: 55px;
-        display: inline;
-        border-style: solid;
-        color: rgba(0, 0, 0, 0.3);
-        border-width: 1px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
       }
-
-      .标题 {
+      
+      .site-title {
         font-weight: bold;
+        font-size: 1.2rem;
       }
-
-      .main {
-        padding-top: 30px;
-      }
-
-      .product {
-        text-align: center;
-        font-size: 50px;
-        font-weight: bold;
-      }
-
-      a:link {
+      
+      .site-title u {
+        color: #ffcc00;
         text-decoration: none;
-        color: blue;
-        font-size: 15px;
       }
-
-      .link {
-        text-align: left;
+      
+      /* 主要内容区域 */
+      .main-content {
+        margin-top: 70px;
+        padding: 1rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
         font-weight: bold;
-        background-color: rgba(100, 100, 100, 0.4);
+        margin: 1.5rem 0 1rem;
+        color: var(--primary-color);
       }
-
-      a:hover {
-        color: red;
+      
+      hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 1rem 0;
       }
-
-      a:visited {
-        color: rgba(100, 100, 100, 0.5);
-        text-decoration: line-through;
+      
+      /* 作品列表 */
+      .projects-list {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
-
-      p.product {
-        text-align: left;
+      
+      .project-item {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+        align-items: start;
+      }
+      
+      .project-item:not(:last-child) {
+        border-bottom: 1px solid #eee;
+      }
+      
+      .project-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-height: 150px;
+      }
+      
+      .project-link {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      
+      .project-link:hover {
+        color: var(--hover-color);
+        text-decoration: underline;
+      }
+      
+      .project-link:visited {
+        color: var(--visited-color);
+      }
+      
+      .project-image {
+        width: 100%;
+        max-width: 180px;
+        height: auto;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+        border: 1px solid #eee;
+      }
+      
+      .project-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding-top: 0.5rem;
+      }
+      
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .project-item {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        
+        .project-info {
+          min-height: auto;
+        }
+        
+        .header {
+          padding: 0.5rem;
+        }
+        
+        .site-title {
+          font-size: 1rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .main-content {
+          padding: 0.5rem;
+        }
+        
+        .section-title {
+          font-size: 1.5rem;
+        }
       }
     </style>
-  </head>
-  <body>
-    <div class="div1"><img class="锆太" src="https://taitingxu.github.io/锆太.png" title="锆太logo">
-      <p class="标题">欢迎来到<u style="color:purple;">锆太</u>的网站</p>
-    </div>
-    <hr>
-    <main class="main">
-      <p class="product">我的产品</p>
-      <hr>
-      <div class="link">
-        <div class="详情">
-          <div class="简介"><a href="https://taitingxu.github.io/calculator" target="_blank">计算器</a><br><img class="图像" src="https://taitingxu.github.io/XiaoYang-2026-01-24-56-04.png"></img></div>
-          <p>计算器的核心用途是快速、准确地完成复杂或重复性计算</p>
-        </div>
-        <hr>
-        <div class="详情">
-          <div class="简介"><a href="https://taitingxu.github.io/mygames-video/" target="_blank">我的游戏实况</a><br><img class="图像" src="https://taitingxu.github.io/XiaoYang-2026-01-24-56-34.png"></img></div>
-          <p>包括Minecraft</p>
-        </div>
-        <hr>
-        <div class="详情">
-          <div class="简介"><a href="https://taitingxu.github.io/rock-paper-scissors/" target="_blank">剪刀石头布</a><br><img class="图像" src="https://taitingxu.github.io/XiaoYang-2026-01-24-57-40.png"></img></div>
-          <p>经典游戏</p>
-        </div>
-        <hr>
-      </div>
+</head>
+
+<body>
+    <!-- 使用语义化标签 -->
+    <header class="header" role="banner">
+        <img class="logo" 
+             src="https://taitingxu.github.io/锆太.png" 
+             alt="锆太网站logo"
+             title="锆太logo">
+        <h1 class="site-title">
+            欢迎来到<span style="color:#ffcc00;">锆太</span>的网站
+        </h1>
+    </header>
+    
+    <main class="main-content" role="main">
+        <h2 class="section-title">我的作品</h2>
+        
+        <section class="projects-list" aria-label="作品列表">
+            <!-- 作品1 -->
+            <article class="project-item">
+                <div class="project-info">
+                    <a href="https://taitingxu.github.io/calculator" 
+                       class="project-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       计算器
+                    </a>
+                    <img class="project-image" 
+                         src="https://taitingxu.github.io/XiaoYang-2026-01-24-56-04.png" 
+                         alt="计算器预览图"
+                         loading="lazy">
+                </div>
+                <div class="project-description">
+                    <p>计算器的核心用途是快速、准确地完成复杂或重复性计算，支持多种数学运算。</p>
+                </div>
+            </article>
+            
+            <hr>
+            
+            <!-- 作品2 -->
+            <article class="project-item">
+                <div class="project-info">
+                    <a href="https://taitingxu.github.io/mygames-video/" 
+                       class="project-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       我的游戏实况
+                    </a>
+                    <img class="project-image" 
+                         src="https://taitingxu.github.io/XiaoYang-2026-01-24-56-34.png" 
+                         alt="游戏实况预览图"
+                         loading="lazy">
+                </div>
+                <div class="project-description">
+                    <p>包含Minecraft等多种游戏的实况视频和游戏分享。</p>
+                </div>
+            </article>
+            
+            <hr>
+            
+            <!-- 作品3 -->
+            <article class="project-item">
+                <div class="project-info">
+                    <a href="https://taitingxu.github.io/rock-paper-scissors/" 
+                       class="project-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       剪刀石头布游戏
+                    </a>
+                    <img class="project-image" 
+                         src="https://taitingxu.github.io/XiaoYang-2026-01-24-57-40.png" 
+                         alt="剪刀石头布游戏预览图"
+                         loading="lazy">
+                </div>
+                <div class="project-description">
+                    <p>经典的剪刀石头布游戏，实现人机互动对战。</p>
+                </div>
+            </article>
+        </section>
     </main>
-  </body>
+</body>
 </html>
