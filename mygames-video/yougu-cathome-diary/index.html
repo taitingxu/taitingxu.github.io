@@ -82,6 +82,77 @@
       color: #7f8c8d;
     }
     
+    /* 搜索栏样式 */
+    .search-section {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    
+    .search-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 16px 25px 16px 55px;
+      font-size: 18px;
+      border: 2px solid #3498db;
+      border-radius: 50px;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    .search-input:focus {
+      border-color: #2980b9;
+      box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      color: #7f8c8d;
+    }
+    
+    .search-results-info {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 16px;
+      margin-top: 10px;
+      min-height: 24px;
+    }
+    
+    .search-results-info.hidden {
+      opacity: 0;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: #7f8c8d;
+      font-size: 18px;
+      display: none;
+    }
+    
+    .no-results.show {
+      display: block;
+      color:red;
+    }
+    
     /* 视频网格 */
     .video-grid {
       display: grid;
@@ -196,7 +267,35 @@
       <p class="site-subtitle">精彩游戏实况视频合集</p>
     </section>
     
-    <div class="video-grid">
+    <!-- 搜索栏部分 -->
+    <section class="search-section">
+      <div class="search-container">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="搜索视频标题或作者..."
+            autocomplete="off"
+          >
+        </div>
+        <div class="search-results-info" id="searchResultsInfo">
+          输入关键词搜索相关视频
+        </div>
+      </div>
+    </section>
+    
+    <!-- 无结果提示 -->
+    <div class="no-results" id="noResults">
+      <p>未找到与搜索词匹配的视频</p>
+      <p>请尝试其他关键词或浏览下方所有视频</p>
+    </div>
+    
+    <!-- 视频网格 -->
+    <div class="video-grid" id="videoGrid">
       <article class="video-card">
         <div class="video-content">
           <h3 class="video-title">死了</h3>
@@ -236,11 +335,85 @@
           </a>
         </div>
       </article>
+      
+      <article class="video-card">
+        <div class="video-content">
+          <h3 class="video-title">老吕发电了</h3>
+          <p class="video-author">
+            <svg class="author-icon" viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            作者: 11区善良的星星
+          </p>
+          <div class="divider"></div>
+          <a 
+            class="video-link" 
+            href="https://taitingxu.github.io/mygames-video/yougu-cathome-diary/老吕发电了.mp4"
+            target="_blank"
+          >
+            观看视频
+          </a>
+        </div>
+      </article>
     </div>
   </main>
   
   <footer class="footer">
     <p>© 2026 游谷猫宅日记实况 | 本页面仅供学习交流使用</p>
   </footer>
+
+  <script>
+    // 搜索功能实现
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const videoCards = document.querySelectorAll('.video-card');
+      const searchResultsInfo = document.getElementById('searchResultsInfo');
+      const noResults = document.getElementById('noResults');
+      const videoGrid = document.getElementById('videoGrid');
+      
+      // 初始时显示搜索结果信息
+      searchResultsInfo.textContent = `找到 ${videoCards.length} 个视频`;
+      
+      // 搜索功能
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        // 遍历所有视频卡片
+        videoCards.forEach(card => {
+          const title = card.querySelector('.video-title').textContent.toLowerCase();
+          const author = card.querySelector('.video-author').textContent.toLowerCase();
+          
+          // 检查标题或作者是否包含搜索词
+          if (title.includes(searchTerm) || author.includes(searchTerm)) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // 更新搜索结果信息
+        if (searchTerm === '') {
+          searchResultsInfo.textContent = `找到 ${videoCards.length} 个视频`;
+          searchResultsInfo.classList.remove('hidden');
+          noResults.classList.remove('show');
+        } else {
+          searchResultsInfo.textContent = `找到 ${visibleCount} 个匹配视频 (搜索词: "${searchTerm}")`;
+          searchResultsInfo.classList.remove('hidden');
+          
+          // 显示/隐藏无结果提示
+          if (visibleCount === 0) {
+            noResults.classList.add('show');
+          } else {
+            noResults.classList.remove('show');
+          }
+        }
+      });
+      
+      // 添加一些示例数据以便测试搜索功能
+      // 这里可以添加更多视频卡片数据
+    });
+  </script>
 </body>
 </html>
