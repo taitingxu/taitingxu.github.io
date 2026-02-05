@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九年级期末成绩分析报告</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .student-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+        
+        .info-item i {
+            color: var(--light-color);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            color: var(--secondary-color);
+        }
+        
+        .score-overview {
+            grid-column: span 2;
+        }
+        
+        .score-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        
+        .score-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .score-card:hover {
+            background-color: #e8f4fc;
+        }
+        
+        .score-card.A {
+            border-left-color: var(--success-color);
+        }
+        
+        .score-card.B {
+            border-left-color: var(--warning-color);
+        }
+        
+        .score-card.C {
+            border-left-color: var(--danger-color);
+        }
+        
+        .subject-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .subject-score {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .subject-grade {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .grade-A {
+            background-color: var(--success-color);
+        }
+        
+        .grade-B {
+            background-color: var(--warning-color);
+        }
+        
+        .grade-C {
+            background-color: var(--danger-color);
+        }
+        
+        .total-score {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .total-score h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .total-score-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .chart-wrapper {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .chart-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chart {
+            height: 300px;
+            position: relative;
+        }
+        
+        .bar-chart {
+            display: flex;
+            height: 100%;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding-bottom: 30px;
+        }
+        
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            width: 12%;
+        }
+        
+        .bar-label {
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+        
+        .bar {
+            width: 70%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.8s ease;
+            position: relative;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .analysis-tabs {
+            margin-bottom: 25px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab-button:hover {
+            color: var(--secondary-color);
+        }
+        
+        .tab-button.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .advice-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 25px;
+        }
+        
+        .advice-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .advice-list {
+            list-style-type: none;
+        }
+        
+        .advice-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .advice-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .advice-icon {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        
+        .advantage {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+        
+        .disadvantage {
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+        
+        .subject-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h3 {
+            color: var(--primary-color);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+        
+        .subject-detail-list {
+            list-style-type: none;
+        }
+        
+        .subject-detail-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .subject-detail-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .progress-bar-container {
+            margin: 15px 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-overview {
+                grid-column: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .score-cards {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .student-info {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .score-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> 九年级期末成绩分析报告</h1>
+                <p>汕尾市2025-2026学年度上学期期末义务教育阶段教学质量监测</p>
+                
+                <div class="student-info">
+                    <div class="info-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>姓名：陈浩然</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-school"></i>
+                        <span>学校：陆丰市玉燕中学</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>班级：3</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>考试结算时间：2026年2月</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card score-overview">
+                <h2><i class="fas fa-star"></i> 成绩概览</h2>
+                <div class="score-cards" id="scoreCards"></div>
+                <div class="total-score">
+                    <h3>总分</h3>
+                    <div class="total-score-value">509</div>
+                    <p>满分：760分 | 等级：A</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-trophy"></i> 等级分布</h2>
+                <div class="chart" id="gradeChart">
+                    <div class="bar-chart" id="gradeBars"></div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #2ecc71;"></div>
+                        <span>A等级 (前20%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #f39c12;"></div>
+                        <span>B等级 (前20%-80%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="analysis-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="score-loss">失分分析</button>
+                <button class="tab-button" data-tab="subject-bias">偏科分析</button>
+                <button class="tab-button" data-tab="answer-summary">答题概要</button>
+                <button class="tab-button" data-tab="growth-track">成长轨迹</button>
+            </div>
+            
+            <div class="tab-content active" id="score-loss">
+                <div class="card">
+                    <h2><i class="fas fa-chart-pie"></i> 失分题型分析</h2>
+                    <div class="chart" id="lossChart">
+                        <div class="bar-chart" id="lossBars"></div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #3498db;"></div>
+                            <span>基础题</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #f39c12;"></div>
+                            <span>中档题</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #e74c3c;"></div>
+                            <span>难题</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="subject-bias">
+                <div class="card">
+                    <h2><i class="fas fa-balance-scale"></i> 学科优势与劣势</h2>
+                    <div class="chart" id="biasChart">
+                        <div class="bar-chart" id="biasBars"></div>
+                    </div>
+                    <p style="margin-top: 20px; text-align: center; font-style: italic;">
+                        注：绿色表示优势学科，红色表示劣势学科
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="answer-summary">
+                <div class="card">
+                    <h2><i class="fas fa-clipboard-check"></i> 各科答题情况</h2>
+                    <div id="answerSummary"></div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="growth-track">
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> 成长轨迹</h2>
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fas fa-calendar-alt" style="font-size: 3rem; color: #3498db; margin-bottom: 20px;"></i>
+                        <h3 style="color: #2c3e50; margin-bottom: 15px;">第一次统一监测</h3>
+                        <p>本次为九年级上学期期末监测，是第一次全市统一考试，暂无历史对比数据。</p>
+                        <p style="margin-top: 15px; color: #7f8c8d;">下次考试后将显示成长轨迹图表</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="advice-card">
+            <h2><i class="fas fa-lightbulb"></i> 学习建议</h2>
+            <ul class="advice-list">
+                <li>
+                    <i class="fas fa-check-circle advice-icon"></i>
+                    <div>
+                        <strong>针对难题强化训练：</strong>
+                        数学、物理、英语的难题失分严重，建议多做<strong>压轴题、综合题</strong>，提升解题思维与应变能力。
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-book-open advice-icon"></i>
+                    <div>
+                        <strong>加强文科理解与记忆：</strong>
+                        语文、历史、道德与法治需加强<strong>文本理解、材料分析、知识点记忆</strong>。建议建立错题本，整理常错题型。
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-chart-bar advice-icon"></i>
+                    <div>
+                        <strong>中档题巩固：</strong>
+                        语文、历史、道德与法治在中档题上失分较多，需加强<strong>题型归类与答题规范</strong>训练。
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-clock advice-icon"></i>
+                    <div>
+                        <strong>时间分配建议：</strong>
+                        保持<span class="advantage">理科优势</span>，适当增加<span class="disadvantage">文科学习时间</span>。每周安排固定时间进行文科系统复习。
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>陆丰市玉燕中学 九年级学业质量分析报告 | 生成时间：2026年2月</p>
+            <p>注：本报告基于学生实际考试成绩数据生成，仅供学习参考。</p>
+        </footer>
+        
+        <!-- 科目详情模态框 -->
+        <div class="subject-detail-modal" id="subjectModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalSubjectName">科目详情</h3>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                <div id="modalContent">
+                    <!-- 动态内容 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 学生成绩数据
+        const studentData = {
+            name: "RR RNR",
+            school: "陆丰市玉燕中学",
+            class: "SHE",
+            exam: "(陆丰)汕尾市2025-2026学年度上学期期末义务教育阶段教学质量监测(九年级)",
+            totalScore: 509,
+            maxScore: 760,
+            subjects: [
+                { name: "语文", score: 68.5, grade: "B", color: "#3498db", loss: { basic: 0, medium: 41.75, hard: 58.25 } },
+                { name: "数学", score: 99, grade: "A", color: "#e74c3c", loss: { basic: 0, medium: 9.52, hard: 90.48 } },
+                { name: "英语", score: 79.5, grade: "A", color: "#9b59b6", loss: { basic: 24.7, medium: 14.81, hard: 82.72 } },
+                { name: "物理", score: 69, grade: "A", color: "#1abc9c", loss: { basic: 0, medium: 22.58, hard: 77.42 } },
+                { name: "化学", score: 76, grade: "A", color: "#f39c12", loss: { basic: 0, medium: 50, hard: 50 } },
+                { name: "历史", score: 65, grade: "B", color: "#d35400", loss: { basic: 11.43, medium: 65.71, hard: 22.86 } },
+                { name: "道德与法治", score: 52, grade: "B", color: "#2c3e50", loss: { basic: 18.75, medium: 41.67, hard: 39.58 } }
+            ],
+            lossSummary: {
+                basic: { total: 14.00, percent: 5.58 },
+                medium: { total: 91.50, percent: 36.45 },
+                hard: { total: 145.50, percent: 57.97 }
+            },
+            // 优势与劣势学科（基于等级和分数）
+            advantages: ["数学", "英语", "物理", "化学"],
+            disadvantages: ["语文", "历史", "道德与法治"],
+            // 答题情况示例数据
+            answerStatus: {
+                "语文": { correct: 12, wrong: 8, total: 20 },
+                "数学": { correct: 18, wrong: 2, total: 20 },
+                "英语": { correct: 15, wrong: 5, total: 20 },
+                "物理": { correct: 14, wrong: 6, total: 20 },
+                "化学": { correct: 16, wrong: 4, total: 20 },
+                "历史": { correct: 13, wrong: 7, total: 20 },
+                "道德与法治": { correct: 10, wrong: 10, total: 20 }
+            }
+        };
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initScoreCards();
+            initGradeChart();
+            initLossChart();
+            initBiasChart();
+            initAnswerSummary();
+            initTabs();
+            initModal();
+            
+            // 初始加载完成后，为柱状图添加动画
+            setTimeout(() => {
+                animateBars();
+            }, 300);
+        });
+        
+        // 初始化成绩卡片
+        function initScoreCards() {
+            const scoreCardsContainer = document.getElementById('scoreCards');
+            
+            studentData.subjects.forEach(subject => {
+                const card = document.createElement('div');
+                card.className = `score-card ${subject.grade}`;
+                card.dataset.subject = subject.name;
+                
+                // 确定等级对应的CSS类
+                let gradeClass = '';
+                if (subject.grade === 'A') gradeClass = 'grade-A';
+                else if (subject.grade === 'B') gradeClass = 'grade-B';
+                else if (subject.grade === 'C') gradeClass = 'grade-C';
+                
+                card.innerHTML = `
+                    <div class="subject-name">${subject.name}</div>
+                    <div class="subject-score">${subject.score}</div>
+                    <div class="subject-grade ${gradeClass}">${subject.grade}等级</div>
+                `;
+                
+                // 添加点击事件以显示科目详情
+                card.addEventListener('click', () => {
+                    showSubjectDetail(subject);
+                });
+                
+                scoreCardsContainer.appendChild(card);
+            });
+        }
+        
+        // 初始化等级分布图表
+        function initGradeChart() {
+            const gradeBarsContainer = document.getElementById('gradeBars');
+            
+            // 计算A和B等级的数量
+            const gradeCounts = {
+                A: studentData.subjects.filter(s => s.grade === 'A').length,
+                B: studentData.subjects.filter(s => s.grade === 'B').length
+            };
+            
+            // 创建等级分布柱状图
+            for (const [grade, count] of Object.entries(gradeCounts)) {
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+                
+                const barHeight = (count / 7) * 100;
+                const barColor = grade === 'A' ? '#2ecc71' : '#f39c12';
+                
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = '0%'; // 初始高度为0，后面动画会展开
+                bar.style.backgroundColor = barColor;
+                bar.dataset.height = barHeight;
+                
+                const barValue = document.createElement('div');
+                barValue.className = 'bar-value';
+                barValue.textContent = `${count}科`;
+                
+                const barLabel = document.createElement('div');
+                barLabel.className = 'bar-label';
+                barLabel.textContent = `${grade}等级`;
+                
+                bar.appendChild(barValue);
+                barContainer.appendChild(bar);
+                barContainer.appendChild(barLabel);
+                gradeBarsContainer.appendChild(barContainer);
+            }
+        }
+        
+        // 初始化失分分析图表
+        function initLossChart() {
+            const lossBarsContainer = document.getElementById('lossBars');
+            
+            studentData.subjects.forEach(subject => {
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+                
+                // 计算总失分百分比（用于柱状图高度）
+                const totalLossPercent = subject.loss.basic + subject.loss.medium + subject.loss.hard;
+                const barHeight = Math.min(totalLossPercent * 1.5, 100);
+                
+                // 创建堆叠柱状图
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = '0%'; // 初始高度为0，后面动画会展开
+                bar.style.display = 'flex';
+                bar.style.flexDirection = 'column-reverse';
+                bar.dataset.height = barHeight;
+                
+                // 基础题部分
+                if (subject.loss.basic > 0) {
+                    const basicPart = document.createElement('div');
+                    basicPart.style.height = `${subject.loss.basic}%`;
+                    basicPart.style.backgroundColor = '#3498db';
+                    bar.appendChild(basicPart);
+                }
+                
+                // 中档题部分
+                if (subject.loss.medium > 0) {
+                    const mediumPart = document.createElement('div');
+                    mediumPart.style.height = `${subject.loss.medium}%`;
+                    mediumPart.style.backgroundColor = '#f39c12';
+                    bar.appendChild(mediumPart);
+                }
+                
+                // 难题部分
+                if (subject.loss.hard > 0) {
+                    const hardPart = document.createElement('div');
+                    hardPart.style.height = `${subject.loss.hard}%`;
+                    hardPart.style.backgroundColor = '#e74c3c';
+                    bar.appendChild(hardPart);
+                }
+                
+                // 柱状图标签
+                const barLabel = document.createElement('div');
+                barLabel.className = 'bar-label';
+                barLabel.textContent = subject.name;
+                
+                barContainer.appendChild(bar);
+                barContainer.appendChild(barLabel);
+                lossBarsContainer.appendChild(barContainer);
+            });
+        }
+        
+        // 初始化偏科分析图表
+        function initBiasChart() {
+            const biasBarsContainer = document.getElementById('biasBars');
+            
+            studentData.subjects.forEach(subject => {
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+                
+                // 计算柱状图高度（基于分数百分比）
+                const scorePercent = (subject.score / 100) * 100;
+                const barHeight = Math.min(scorePercent, 100);
+                
+                // 确定颜色（优势学科为绿色，劣势学科为红色）
+                const isAdvantage = studentData.advantages.includes(subject.name);
+                const barColor = isAdvantage ? '#2ecc71' : '#e74c3c';
+                
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = '0%'; // 初始高度为0，后面动画会展开
+                bar.style.backgroundColor = barColor;
+                bar.dataset.height = barHeight;
+                
+                // 分数标签
+                const barValue = document.createElement('div');
+                barValue.className = 'bar-value';
+                barValue.textContent = subject.score;
+                
+                // 柱状图标签
+                const barLabel = document.createElement('div');
+                barLabel.className = 'bar-label';
+                barLabel.textContent = subject.name;
+                
+                bar.appendChild(barValue);
+                barContainer.appendChild(bar);
+                barContainer.appendChild(barLabel);
+                biasBarsContainer.appendChild(barContainer);
+            });
+        }
+        
+        // 初始化答题概要
+        function initAnswerSummary() {
+            const answerSummaryContainer = document.getElementById('answerSummary');
+            
+            studentData.subjects.forEach(subject => {
+                const status = studentData.answerStatus[subject.name];
+                const correctPercent = (status.correct / status.total) * 100;
+                
+                const subjectSummary = document.createElement('div');
+                subjectSummary.className = 'progress-bar-container';
+                subjectSummary.style.marginBottom = '25px';
+                
+                subjectSummary.innerHTML = `
+                    <div class="progress-label">
+                        <span><strong>${subject.name}</strong> (${subject.score}分, ${subject.grade}等级)</span>
+                        <span>${status.correct} / ${status.total} 题 (${correctPercent.toFixed(1)}%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background-color: ${subject.color};" data-width="${correctPercent}"></div>
+                    </div>
+                `;
+                
+                answerSummaryContainer.appendChild(subjectSummary);
+            });
+            
+            // 添加进度条动画
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.dataset.width;
+                    bar.style.width = `${width}%`;
+                });
+            }, 500);
+        }
+        
+        // 初始化标签页
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 移除所有按钮的active类
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 隐藏所有标签内容
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // 激活当前按钮
+                    button.classList.add('active');
+                    
+                    // 显示对应的标签内容
+                    const tabId = button.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // 如果切换到答题概要标签，触发进度条动画
+                    if (tabId === 'answer-summary') {
+                        setTimeout(() => {
+                            document.querySelectorAll('.progress-fill').forEach(bar => {
+                                const width = bar.dataset.width;
+                                bar.style.width = `${width}%`;
+                            });
+                        }, 100);
+                    }
+                });
+            });
+        }
+        
+        // 初始化模态框
+        function initModal() {
+            const modal = document.getElementById('subjectModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            
+            // 点击关闭按钮关闭模态框
+            closeModalBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // 点击模态框外部关闭
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 显示科目详情
+        function showSubjectDetail(subject) {
+            const modal = document.getElementById('subjectModal');
+            const modalSubjectName = document.getElementById('modalSubjectName');
+            const modalContent = document.getElementById('modalContent');
+            
+            // 设置科目名称
+            modalSubjectName.textContent = `${subject.name}详情`;
+            
+            // 构建详情内容
+            const status = studentData.answerStatus[subject.name];
+            const correctPercent = (status.correct / status.total) * 100;
+            
+            // 确定优势/劣势
+            const isAdvantage = studentData.advantages.includes(subject.name);
+            const biasText = isAdvantage ? 
+                `<span style="color: #2ecc71; font-weight: 600;">优势学科</span>` : 
+                `<span style="color: #e74c3c; font-weight: 600;">待加强学科</span>`;
+            
+            // 构建详情HTML
+            modalContent.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div><strong>分数：</strong>${subject.score}分</div>
+                        <div><strong>等级：</strong>${subject.grade}</div>
+                        <div>${biasText}</div>
+                    </div>
+                    
+                    <div class="progress-bar-container">
+                        <div class="progress-label">
+                            <span>答题正确率</span>
+                            <span>${status.correct} / ${status.total} 题</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${correctPercent}%; background-color: ${subject.color};"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin-bottom: 15px;">失分分析</h4>
+                <ul class="subject-detail-list">
+                    <li>
+                        <span>基础题失分：</span>
+                        <span>${subject.loss.basic}%</span>
+                    </li>
+                    <li>
+                        <span>中档题失分：</span>
+                        <span>${subject.loss.medium}%</span>
+                    </li>
+                    <li>
+                        <span>难题失分：</span>
+                        <span>${subject.loss.hard}%</span>
+                    </li>
+                </ul>
+                
+                <h4 style="color: #2c3e50; margin-top: 20px; margin-bottom: 15px;">学习建议</h4>
+                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid ${subject.color};">
+                    ${getSubjectAdvice(subject)}
+                </div>
+            `;
+            
+            // 显示模态框
+            modal.style.display = 'flex';
+        }
+        
+        // 获取科目学习建议
+        function getSubjectAdvice(subject) {
+            const adviceMap = {
+                "语文": "加强文本理解与文言文阅读，注重作文素材积累和写作技巧训练。",
+                "数学": "保持优势，加强对压轴题和综合题的训练，提升解题思维灵活性。",
+                "英语": "强化阅读理解和完形填空，增加词汇量，注重写作训练。",
+                "物理": "加强对物理概念的理解，注重实验题和综合计算题的训练。",
+                "化学": "巩固基础知识，加强化学方程式和实验题训练。",
+                "历史": "注重历史事件的时间线和关联性记忆，加强材料分析题训练。",
+                "道德与法治": "加强对法律条文和时政热点的理解，注重案例分析能力。"
+            };
+            
+            return adviceMap[subject.name] || "针对该科目的薄弱环节进行专项训练，巩固基础知识，提升综合应用能力。";
+        }
+        
+        // 为柱状图添加动画效果
+        function animateBars() {
+            document.querySelectorAll('.bar').forEach(bar => {
+                const height = bar.dataset.height;
+                bar.style.height = `${height}%`;
+            });
+        }
+    </script>
+</body>
+</html>
