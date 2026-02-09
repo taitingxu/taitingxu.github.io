@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="随机颜色rgb">
+  <meta name="keywords" content="随机颜色rgb">
+  <meta name="author" content="taitingxu">
+  <meta name="generator" content="Visual Studio Code">
+  <meta name="copyright" content="taitingxu">
+  <meta name="language" content="zh-CN">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#3e8e41">
+  <meta property="og:title" content="随机颜色rgb">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://taitingxu.github.io/random-color-rgb/">
+  <meta property="og:image" content="https://taitingxu.github.io/random-color-rgb/img/random-color-rgb.png">
+  <meta property="og:description" content="随机颜色rgb">
+  <meta property="og:site_name" content="随机颜色rgb">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:updated_time" content="2026-02-09T16:25:22.000Z">
+  <title>随机颜色rgb</title>
+  <style>
+    #color {
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+      /*设置边框*/
+      display:block;
+      margin:auto;
+    }
+
+    button {
+      margin-top:0;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      /*设置按钮样式*/
+      margin-bottom:50px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+      /*鼠标悬停时背景颜色*/
+    }
+
+    button:active {
+      background-color:red;
+      /*鼠标按下时背景颜色*/
+    }
+
+    main {
+      text-align: center;
+      /*设置居中*/
+    }
+
+    #colorText {
+      font-size: 40px;
+      /*设置字体大小*/
+      margin-top: 20px;
+      /*设置距离顶部的距离*/
+      display:block;
+      background-color:rgba(10,10,10,0.3);
+    }
+    
+    span {
+      margin-top: 20px;
+      /*设置距离顶部的距离*/
+      display:grid;
+      grid-template-rows:100px 120px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <button onclick="changeColor()">随机颜色</button>
+    <br>
+    <button onclick="ed(disableAlpha)" class="disableAlpha">禁用Alpha</button>
+    <button onclick="ed(enableAlpha)" class="enableAlpha">启用Alpha</button>
+    <div id="color">
+
+    </div>
+    <br>
+    <span><code id="colorText"></code><button onclick="copyColor()">复制</button></span>
+    <p>点击按钮可以随机生成一个随机颜色的背景。</p>
+    <p>颜色值由红绿蓝三原色组成，每种颜色的取值范围为0-255。</p>
+    <p>颜色值以rgb()函数的形式表示，例如rgb(255,0,0)表示红色。</p>
+    <p>颜色值也可以用十六进制表示，例如#FF0000表示红色。</p>
+    <p>本页面使用JavaScript生成随机颜色，并设置背景颜色。</p>
+
+  </main>
+  <script>
+    function ed(alphaStatu) {
+      switch (alphaStatu) {
+        case "disableAlpha":
+          document.getElementsByClassName("disableAlpha")[0].style.display = "none";
+          document.getElementsByClassName("enableAlpha")[0].style.display = "block";
+          document.getElementById("color").style.backgroundColor = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")";
+          break;
+        case "enableAlpha":
+          document.getElementsByClassName("disableAlpha")[0].style.display = "block";
+          document.getElementsByClassName("enableAlpha")[0].style.display = "none";
+          document.getElementById("color").style.backgroundColor = "rgba(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.random().toFixed(2) + ")";
+          break;
+        default:
+          break;
+      }
+    }
+
+    function changeColor() {
+      var r = Math.floor(Math.random() * 256);   //随机生成0-255的整数
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var a = Math.random().toFixed(2);   //随机生成0-1的小数，保留两位小数
+      var color = "rgba(" + r + "," + g + "," + b + "," + a + ")";   //生成颜色值
+      document.getElementById("color").style.backgroundColor = color;   //设置背景颜色
+      document.getElementById("colorText").innerHTML = color;   //设置颜色值
+    }
+
+    function copyColor() {
+      var color = document.getElementById("colorText").innerHTML;   //获取颜色值
+      var input = document.createElement("input");   //创建input元素
+      input.value = color;   //设置input元素的值为颜色值
+      document.body.appendChild(input);   //添加到body中
+      input.select();   //选中input元素
+      document.execCommand("copy");   //复制颜色值
+      document.body.removeChild(input);   //删除input元素
+      alert("复制成功！");   //提示复制成功
+    }
+  </script>
+</body>
+
+</html>
