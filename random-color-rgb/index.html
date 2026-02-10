@@ -3,139 +3,188 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="随机颜色rgb">
-  <meta name="keywords" content="随机颜色rgb">
-  <meta name="author" content="taitingxu">
-  <meta name="generator" content="Visual Studio Code">
-  <meta name="copyright" content="taitingxu">
-  <meta name="language" content="zh-CN">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#3e8e41">
-  <meta property="og:title" content="随机颜色rgb">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://taitingxu.github.io/random-color-rgb/">
-  <meta property="og:image" content="https://taitingxu.github.io/random-color-rgb/img/random-color-rgb.png">
-  <meta property="og:description" content="随机颜色rgb">
-  <meta property="og:site_name" content="随机颜色rgb">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:updated_time" content="2026-02-09T16:25:22.000Z">
-  <title>随机颜色rgb</title>
+  <title>随机RGBA</title>
+  <base target="_blank">
   <style>
-    #color {
-      width: 200px;
-      height: 200px;
-      border: 1px solid black;
-      /*设置边框*/
-      display:block;
-      margin:auto;
+    .d {
+      display: block;
+    }
+
+    .e {
+      display: none;
+    }
+
+    div {
+      width: 100%;
+      height: 300px;
+      border-style: solid;
+    }
+
+    code {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: auto;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      color: #fff;
+      text-align: center;
     }
 
     button {
-      margin-top:0;
+      height: 40px;
       padding: 10px;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      /*设置按钮样式*/
-      margin-bottom:50px;
-      transition: background-color 0.3s ease;
+      border-style: solid;
     }
 
-    button:hover {
-      background-color: #3e8e41;
-      /*鼠标悬停时背景颜色*/
+    header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
 
-    button:active {
-      background-color:red;
-      /*鼠标按下时背景颜色*/
-    }
-
-    main {
+    h1 {
       text-align: center;
-      /*设置居中*/
+      background-color: lightblue;
     }
 
-    #colorText {
-      font-size: 40px;
-      /*设置字体大小*/
-      margin-top: 20px;
-      /*设置距离顶部的距离*/
+    #text-to-copy {
+      width: 100%;
+    }
+
+    p {
+      width: 100%;
+    }
+
+    nav {
       display:block;
-      background-color:rgba(10,10,10,0.3);
+      background-color:black;
+      text-decoration:none;
+      padding:10px 16px;
+      font-size:20px;
     }
-    
-    span {
-      margin-top: 20px;
-      /*设置距离顶部的距离*/
-      display:grid;
-      grid-template-rows:100px 120px;
 
+    a {
+      color:white;
+      text-decoration:none;
+      padding:10px 16px;
+      font-weight:bold;
+      margin-left:-16px;
+      margin-right:16px;
+      transition: background-color 0.5s;
+    }
+
+    a:hover {
+      background-color:red;
+    }
+
+    a:active {
+      background-color:blue;
+    }
+
+    a:visited {
+      background-color: #666;
+      color: #333;
     }
   </style>
 </head>
 
 <body>
-  <main>
-    <button onclick="changeColor()">随机颜色</button>
-    <br>
-    <button onclick="ed(disableAlpha)" class="disableAlpha">禁用Alpha</button>
-    <button onclick="ed(enableAlpha)" class="enableAlpha">启用Alpha</button>
-    <div id="color">
+  <nav>
+    <a href="https://taitingxu.github.io/">主页</a>
+    <a href="https://taitingxu.github.io/calculator/">计算器</a>
+    <a href="//taitingxu.github.io/rock-paper-scissors/">剪刀石头布</a>
+    <a href="https://taitingxu.github.io/mygames-video/">我的游戏实况</a>
+  </nav>
+  <header>
+    <button class="r" onclick="clr();">随机颜色</button>
+    <button class="d" onclick="s(false)">禁用透明度</button>
+    <button class="e" onclick="s(true)">启用透明度</button>
+  </header>
+  <h1>
 
-    </div>
-    <br>
-    <span><code id="colorText"></code><button onclick="copyColor()">复制</button></span>
-    <p>点击按钮可以随机生成一个随机颜色的背景。</p>
-    <p>颜色值由红绿蓝三原色组成，每种颜色的取值范围为0-255。</p>
-    <p>颜色值以rgb()函数的形式表示，例如rgb(255,0,0)表示红色。</p>
-    <p>颜色值也可以用十六进制表示，例如#FF0000表示红色。</p>
-    <p>本页面使用JavaScript生成随机颜色，并设置背景颜色。</p>
+  </h1>
+  <div>
 
-  </main>
+  </div>
+  <code></code>
+  <button id="text-to-copy" onclick="copyText()">复制</button>
+  <p></p>
   <script>
-    function ed(alphaStatu) {
-      switch (alphaStatu) {
-        case "disableAlpha":
-          document.getElementsByClassName("disableAlpha")[0].style.display = "none";
-          document.getElementsByClassName("enableAlpha")[0].style.display = "block";
-          document.getElementById("color").style.backgroundColor = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")";
+    let color = {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1,
+    };
+
+    let dom = {
+      d: document.querySelector(".d"),
+      e: document.querySelector(".e"),
+      c: document.getElementsByTagName("code")[0],
+      st: document.getElementsByTagName("h1")[0],
+      cp: document.getElementsByTagName("p")[0],
+    }
+
+    function s(s) {
+      switch (s) {
+        case true:
+          color.a = Math.round(Math.random() * 100) / 100;
+          dom.d.style.display = "block";
+          dom.e.style.display = "none";
+          dom.st.innerHTML = "透明度已启用";
           break;
-        case "enableAlpha":
-          document.getElementsByClassName("disableAlpha")[0].style.display = "block";
-          document.getElementsByClassName("enableAlpha")[0].style.display = "none";
-          document.getElementById("color").style.backgroundColor = "rgba(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.random().toFixed(2) + ")";
+        case false:
+          color.a = 1;
+          dom.d.style.display = "none";
+          dom.e.style.display = "block";
+          dom.st.innerHTML = "透明度已禁用";
           break;
         default:
           break;
       }
     }
 
-    function changeColor() {
-      var r = Math.floor(Math.random() * 256);   //随机生成0-255的整数
-      var g = Math.floor(Math.random() * 256);
-      var b = Math.floor(Math.random() * 256);
-      var a = Math.random().toFixed(2);   //随机生成0-1的小数，保留两位小数
-      var color = "rgba(" + r + "," + g + "," + b + "," + a + ")";   //生成颜色值
-      document.getElementById("color").style.backgroundColor = color;   //设置背景颜色
-      document.getElementById("colorText").innerHTML = color;   //设置颜色值
+    function clr() {
+      color.r = Math.round(Math.random() * 256);
+      color.g = Math.round(Math.random() * 256);
+      color.b = Math.round(Math.random() * 256);
+      if (color.a !== 1) { // 如果透明度不是1，说明透明度功能已启用
+        color.a = Math.round(Math.random() * 100) / 100;
+      }
+      let rgbaColor = "rgba(" + color.r + "," + color.g + "," + color.b + "," + color.a + ")";
+      document.querySelector("div").style.backgroundColor = rgbaColor;
+      dom.c.innerHTML = "rgba(" + color.r + "," + color.g + "," + color.b + "," + color.a + ")";
     }
 
-    function copyColor() {
-      var color = document.getElementById("colorText").innerHTML;   //获取颜色值
-      var input = document.createElement("input");   //创建input元素
-      input.value = color;   //设置input元素的值为颜色值
-      document.body.appendChild(input);   //添加到body中
-      input.select();   //选中input元素
-      document.execCommand("copy");   //复制颜色值
-      document.body.removeChild(input);   //删除input元素
-      alert("复制成功！");   //提示复制成功
+    function copyText() {
+      // 获取要复制的文本元素
+      var textArea = document.getElementsByTagName("code")[0];
+      // 创建一个Range对象
+      var range = document.createRange();
+      // 选中textArea中的所有文本
+      range.selectNodeContents(textArea);
+      // 获取当前选区
+      var selection = window.getSelection();
+      // 清空当前选区
+      selection.removeAllRanges();
+      // 添加Range对象到选区
+      selection.addRange(range);
+      // 复制选中的文本
+      document.execCommand("copy");
+      // 清空选区
+      selection.removeAllRanges();
+      // 可选：复制成功后的提示
+      alert("文本已复制到剪贴板！");
+      dom.cp.innerHTML = "文本已复制到剪贴板！";
     }
+
   </script>
 </body>
 
 </html>
+<!-- 有错误吗 -->
