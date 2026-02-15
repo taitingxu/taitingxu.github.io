@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>CSS3用户界面</title>
+    <style>
+        header {
+            display: grid;
+            grid-template-columns: 100px auto;
+            background-color: #666;
+            border-radius:20px;
+            border:3px dashed #f00;
+            box-shadow: 5px 5px 5px #888;
+            transition: all 0.25s ease-in-out;
+        }
+
+        header:hover {
+            transform:rotate(720deg);
+            background-color: #333;
+        }
+
+        h1 {
+            color: #fff;
+            margin-left: 10%;
+            padding: 10px;
+        }
+
+        img {
+            width: 100px;
+            margin-right: auto;
+        }
+
+        .头 {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            min-width: 300px;
+        }
+
+        .针对::before {
+            content: "电脑端";
+        }
+
+        aside {
+            background-color: #eee;
+            padding: 10px;
+            margin-top: 0;
+            margin-right: 20px;
+        }
+
+        .其余 {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            margin-top: 10px;
+        }
+
+        main {
+            min-height: 300px;
+            background-color: #999;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 500px;
+            background-color: #aaa;
+            padding: 20px;
+        }
+
+        .主内容提示 {
+            text-align: center;
+            border-bottom: 1px dashed #ccc;
+            width: 100%;
+        }
+
+        nav {
+            background-color: rgb(200, 255, 0);
+        }
+
+        .导航栏文本 {
+            text-align: center;
+            transition: font-size 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+
+        .导航栏文本:hover {
+            font-size:20px;
+            color: red;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            background-color: #666;
+            margin: -2px;
+            border: none;
+            min-width: 100px;
+            font-size:20px;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+        }
+
+        button:hover {
+            transform: rotate(30deg);
+            color:red;
+            background-color:blue;
+            font-weight:bold;
+            font-size:30px;
+        }
+
+        .buttons {
+            background-color: #000;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .buttons:hover {
+            overflow: scroll;
+        }
+
+        .侧边栏链接 {
+            text-decoration: none;
+            color: #000;
+            font-size: 30px;
+            display: block;
+            width: 100px;
+            border-top: 1px solid #666;
+            border-bottom: 1px solid #666;
+            text-align: center;
+        }
+
+        .链接 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        article {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .多文章 {
+            column-count: 3;
+            column-rule: 1px dashed #ccc;
+        }
+
+        .Welcome {
+            background-image: url("https://www.autohotkey.com/assets/images/ahk_wallpaper_reduced.jpg");
+            width: 100%;
+            height: 500px;
+            color: white;
+        }
+
+        .祝福语 {
+            margin-left: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 50%;
+            font-size: 50px;
+            animation: 弹出 2s ease-in-out;
+        }
+
+        .祝福语 h2 {
+            margin-bottom: 0;
+        }
+
+        .侧边栏整体 {
+            display: block;
+        }
+
+        .专为手机设计的 {
+            display: none;
+            background-color:rgb(200, 255, 0);
+        }
+
+        .手机端设计 {
+            background-color: #000;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .手机端设计:hover {
+            overflow:scroll;
+        }
+
+        .手机端链接 {
+            font-size:20px;
+            text-decoration: none;
+            width: 100px;
+            height: 50px;
+            background-color: #666;
+            min-width: 100px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            color:#000;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .手机端链接:hover {
+            transform: rotate(30deg);
+            color:red;
+            background-color:blue;
+            font-weight:bold;
+            font-size:30px;
+        }
+
+        .手机端侧边栏提示 {
+            text-align:center;
+        }
+
+
+        @keyframes 弹出 {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .针对:before {
+                content: "手机端";
+            }
+
+            .多文章 {
+                column-count: 2;
+            }
+
+            .侧边栏整体 {
+                display: none;
+            }
+
+            .其余 {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .专为手机设计的 {
+                display: grid;
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+            .针对::before {
+                content: "平板端";
+            }
+
+            .多文章 {
+                column-count: 3;
+            }
+
+            .侧边栏整体 {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://taitingxu.github.io/锆太.png"></img>
+        <div class="头">
+            <h1>我是页眉</h1>
+            <p class="针对">界面</p>
+        </div>
+    </header>
+    <div class="Welcome">
+        <div class="祝福语">
+            <h2>欢迎</h2>
+            <p>欢迎来到我的网站</p>
+        </div>
+    </div>
+    <nav>
+        <h2 class="导航栏文本">导航栏</h2>
+        <div class="buttons">
+            <button>按钮1</button>
+            <button>按钮2</button>
+            <button>按钮3</button>
+            <button>按钮4</button>
+            <button>按钮5</button>
+            <button>按钮6</button>
+            <button>按钮7</button>
+            <button>按钮8</button>
+            <button>按钮9</button>
+            <button>按钮10</button>
+            <button>按钮11</button>
+            <button>按钮12</button>
+            <button>按钮13</button>
+            <button>按钮14</button>
+            <button>按钮15</button>
+            <button>按钮16</button>
+            <button>按钮17</button>
+            <button>按钮18</button>
+            <button>按钮19</button>
+            <button>按钮20</button>
+        </div>
+    </nav>
+    <div class="其余">
+        <div class="侧边栏整体">
+            <aside>
+                <h2>侧边栏</h2>
+                <div class="链接">
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                    <a class="侧边栏链接" href="#">链接</a>
+                </div>
+            </aside>
+        </div>
+        <div class="专为手机设计的">
+            <h2 class="手机端侧边栏提示">侧边栏导航链接</h2>
+            <div class="手机端设计">
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+                <a class="手机端链接" href="#">链接</a>
+            </div>
+        </div>
+        <main>
+            <div class="主内容提示">
+                <h2>主要内容</h2>
+                <p>这里是主要内容</p>
+            </div>
+            <div class="多文章">
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+                <article>
+                    <h2>文章标题</h2>
+                    <p>这里是文章内容</p>
+                </article>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>这里是页脚</p>
+        <p>&copy; 2026 某某某</p>
+        <p>联系方式是:xxxxxxxxxx</p>
+    </footer>
+</body>
+
+</html>
